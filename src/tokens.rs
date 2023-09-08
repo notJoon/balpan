@@ -5,6 +5,7 @@ pub enum CommentToken {
     Python,
     Ruby,
     Cpp,
+    TypeScript,
     Other,
 }
 
@@ -15,6 +16,7 @@ impl CommentToken {
             Language::Python => CommentToken::Python,
             Language::Ruby => CommentToken::Ruby,
             Language::Cpp => CommentToken::Cpp,
+            Language::TypeScript => CommentToken::TypeScript,
             _ => CommentToken::Other,
         }
     }
@@ -25,6 +27,7 @@ impl CommentToken {
             CommentToken::Python => "# [TODO]",
             CommentToken::Ruby => "# [TODO]",
             CommentToken::Cpp => "/// [TODO]",
+            CommentToken::TypeScript => "// [TODO]",
             CommentToken::Other => "// [TODO]",
         }
     }

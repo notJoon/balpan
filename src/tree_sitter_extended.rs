@@ -122,7 +122,17 @@ impl ResolveSymbol for Node<'_> {
             }
         }
 
-        let identifier_node = node.unwrap();
+        if self.kind() == "export_statement" {
+            if let Some(child) = self.child_by_field_name("declaration") {
+                node = child.child_by_field_name("name");
+            }
+        }
+
+        if self.kind() == "method_definition" {
+            node = self.child_by_field_name("name");
+        }
+
+        let identifier_node = node.expect("identifier_node is None");
 
         let from = identifier_node.start_position().column;
         let row = identifier_node.end_position().row;

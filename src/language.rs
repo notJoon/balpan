@@ -4,6 +4,7 @@ pub enum Language {
     Python,
     Ruby,
     Cpp,
+    TypeScript,
     Other(String),
 }
 
@@ -14,6 +15,7 @@ impl Language {
             Self::Python => "python",
             Self::Ruby => "ruby",
             Self::Cpp => "cpp",
+            Self::TypeScript => "typescript",
             Self::Other(language) => language.as_str(),
         }
     }
@@ -27,6 +29,7 @@ impl Language {
             "cpp" => Self::Cpp,
             "h" => Self::Cpp,
             "hpp" => Self::Cpp,
+            "ts" => Self::TypeScript,
             other_extension => Self::Other(other_extension.to_string()),
         }
     }
@@ -38,6 +41,7 @@ impl Language {
             Language::Python => "module",
             Language::Ruby => "program",
             Language::Cpp => "translation_unit",
+            Language::TypeScript => "program",
             _ => "",
         }
     }
@@ -48,6 +52,7 @@ impl Language {
             Language::Python => "null",
             Language::Ruby => "null",
             Language::Cpp => "null",
+            Language::TypeScript => "decorator",
             _ => "",
         }
     }
@@ -58,6 +63,7 @@ impl Language {
             Language::Python => "comment",
             Language::Ruby => "comment",
             Language::Cpp => "comment",
+            Language::TypeScript => "comment",
             _ => "",
         }
     }
@@ -113,6 +119,14 @@ impl Language {
                 "function_definition",
                 "class_specifier",
             ],
+            Language::TypeScript => vec![
+                "function_declaration",
+                "class_declaration",
+                "method_definition",
+                "export_statement",
+                "interface_declaration",
+                "expression_statement", // namespace
+            ],
             _ => vec![],
         }
     }
@@ -123,6 +137,11 @@ impl Language {
             Language::Python => vec!["class_definition"],
             Language::Ruby => vec!["class", "module"],
             Language::Cpp => vec!["namespace_definition", "class_specifier"],
+            Language::TypeScript => vec![
+                "class_declaration", 
+                "expression_statement", 
+                "internal_module",
+            ],
             _ => vec![],
         }
     }
@@ -135,6 +154,7 @@ impl From<&str> for Language {
             "python" => Self::Python,
             "ruby" => Self::Ruby,
             "cpp" => Self::Cpp,
+            "typescript" => Self::TypeScript,
             other_language => Self::Other(other_language.to_string()),
         }
     }
